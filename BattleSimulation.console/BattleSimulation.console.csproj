@@ -7,11 +7,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Monsters\" />
-    <Folder Include="Player\" />
-    <Folder Include="Routes\" />
-    <Folder Include="Trainers\" />
-  </ItemGroup>
-
 </Project>
