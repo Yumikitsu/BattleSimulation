@@ -9,8 +9,6 @@
 
   <ItemGroup>
     <Folder Include="Monsters\" />
-    <Folder Include="Moves\" />
-    <Folder Include="Items\" />
     <Folder Include="Player\" />
     <Folder Include="Routes\" />
     <Folder Include="Trainers\" />
