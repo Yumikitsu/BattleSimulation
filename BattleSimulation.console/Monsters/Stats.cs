@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BattleSimulation.console.Monsters
 {
-    public interface IStats
+    public class Stats
     {
         public int HP { get; set; } //Health
         public int ATK { get; set; } //Attack

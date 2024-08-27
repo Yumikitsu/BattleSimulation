@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace BattleSimulation.console.Moves
 {
-    public class Leafage
+    public class Scratch : IMoves
     {
-        public string name { get; set; } = "Leafage";
-        public string description { get; set; } = "Shoots a bundle of leaves at the enemy";
+        public string name { get; set; } = "Scratch";
+        public string description { get; set; } = "Uses their claw to scratch the enemy";
         public int power { get; set; } = 40;
         public int uses { get; set; } = 40;
         public int accuracy { get; set; } = 100;
-        public IType typing { get; set; } = new Grass();
+        public IType typing { get; set; } = new Normal();
         public bool physical { get; set; } = true;
     }
 }
