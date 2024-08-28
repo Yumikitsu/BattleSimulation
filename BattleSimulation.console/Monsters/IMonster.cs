@@ -20,6 +20,5 @@ namespace BattleSimulation.console.Monsters
         public Dictionary<int, IMoves> learnableMoves { get; set; } //List of all learnable moves and the level they can be taught at
         public List<IType> typing { get; set; } //List of all typings the monster has (Max 2)
         public void LevelUp(List<IMonster> party, int index); //Update the stats and let the player select a new move if it is learnable at this level
-        public void Evolve(List<IMonster> party, int index); //If the evolution level is met upon leveling up, make the monster at the current party location to the evolved version of this monster.
     }
 }

@@ -1,4 +1,5 @@
 ﻿using BattleSimulation.console.Moves;
+using BattleSimulation.console.Moves.NormalMoves;
 using BattleSimulation.console.Types;
 using System;
 using System.Collections.Generic;
@@ -13,14 +14,15 @@ namespace BattleSimulation.console.Monsters
         public string name { get; set; } = "Monsoir";
         public int level { get; set; }
         public EXP experience { get; set; }
-        public int evolutionLevel { get; set; } = 23;
+        public int evolutionLevel { get; set; } = 33;
         public Stats baseStats { get; set; } = new Stats() 
         { 
+            //Total = 355
             HP = 65,
             ATK = 80,
-            DEF = 50,
+            DEF = 60,
             Sp_ATK = 40,
-            Sp_DEF = 50,
+            Sp_DEF = 60,
             SPD = 50
         };
         public Stats currentStats { get; set; }
@@ -36,9 +38,10 @@ namespace BattleSimulation.console.Monsters
             { new Normal() }
         };
 
-        public void Evolve(List<IMonster> party, int index)
+        public void Evolve(List<IMonster> party, int index) //This method only exists in monsters that can evolve
         {
-            throw new NotImplementedException();
+            party[index] = new Monsieur(this.level, this.experience, this.moves); //Replace the monster in the index position with the evolved version
+            Console.WriteLine($"Congratulations! Your {this.name} evolved into {party[index].name}!");
         }
 
         public void LevelUp(List<IMonster> party, int index)
@@ -91,14 +94,15 @@ namespace BattleSimulation.console.Monsters
                                 }
                             }
                         }
-                        else
+                        else //Add new move
                         {
                             this.moves.Add(learnableMoves[this.level]);
                             Console.WriteLine($"{this.name} learnt {learnableMoves[this.level].name}!");
                         }
                     }
 
-                    if(!(this.experience.currentEXP >= this.experience.levelRequirement.ElementAt(this.level - 1)) && this.level >= this.evolutionLevel) //If a level up won't occur anymore and we are at the level where we can evolve
+                    //If the evolution level is met upon leveling up, make the monster at the current party location to the evolved version of this monster.
+                    if (!(this.experience.currentEXP >= this.experience.levelRequirement.ElementAt(this.level - 1)) && this.level >= this.evolutionLevel)
                     {
                         this.Evolve(party, index);
                     }

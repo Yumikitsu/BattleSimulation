@@ -5,13 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BattleSimulation.console.Moves
+namespace BattleSimulation.console.Moves.WaterMoves
 {
     public class Bubble : IMoves
     {
         public string name { get; set; } = "Bubble";
         public string description { get; set; } = "Cover the enemy with popping bubbles";
         public int power { get; set; } = 40;
+        public decimal critChance { get; set; } = 1 / 16;
         public int uses { get; set; } = 40;
         public int accuracy { get; set; } = 100;
         public IType typing { get; set; } = new Water();
