@@ -63,13 +63,13 @@ namespace BattleSimulation.console.Monsters
                             while (true) //Read input until a valid on is selected
                             {
                                 Console.WriteLine($"{this.name} is trying to learn {learnableMoves[this.level].name} do you want you want to learn this move?\n1. Yes\n2. No");
-                                string input = Console.ReadLine();
+                                string input = Console.ReadLine() ?? string.Empty;
                                 if (input == "1")
                                 {
                                     while (true) //Read input until a valid one is selected
                                     {
                                         Console.WriteLine($"Which move would you like to replace?\n1. {this.moves.ElementAt(0).name}\n2. {this.moves.ElementAt(1).name}\n3. {this.moves.ElementAt(2).name}\n4. {this.moves.ElementAt(3).name}\n5. Cancel");
-                                        input = Console.ReadLine();
+                                        input = Console.ReadLine() ?? string.Empty;
                                         if (input == "1")
                                         {
                                             this.moves[0] = learnableMoves[this.level];
@@ -118,13 +118,17 @@ namespace BattleSimulation.console.Monsters
             }
         }
 
-        public Monsoir(int level, EXP exp = null, List<IMoves> moves = null)
+        public Monsoir(int level, EXP? exp = null, List<IMoves>? moves = null)
         {
             //Level
             this.level = level;
             
             //Experience points
             if (exp != null)
+            {
+                this.experience = exp;
+            }
+            else
             {
                 this.experience = new EXP(level, 1); //0 | 1 | 2 = Fast | Medium | Slow EXP group
             }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BattleSimulation.console.Moves.GrassMoves
 {
-    public class Leafage
+    public class Leafage : IMoves
     {
         public string name { get; set; } = "Leafage";
         public string description { get; set; } = "Shoots a bundle of leaves at the enemy";

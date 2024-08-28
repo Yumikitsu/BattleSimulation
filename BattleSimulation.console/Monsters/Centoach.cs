@@ -1,41 +1,53 @@
-﻿using BattleSimulation.console.Moves;
-using BattleSimulation.console.Moves.NormalMoves;
+﻿using BattleSimulation.console.Moves.NormalMoves;
+using BattleSimulation.console.Moves.PsychicMoves;
+using BattleSimulation.console.Moves.WaterMoves;
+using BattleSimulation.console.Moves;
 using BattleSimulation.console.Types;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BattleSimulation.console.Moves.BugMoves;
 
 namespace BattleSimulation.console.Monsters
 {
-    public class Monsieur : IMonster
+    public class Centoach : IMonster
     {
-        public string name { get; set; } = "Monsieur";
+        public string name { get; set; } = "Centoach";
         public int level { get; set; }
         public EXP experience { get; set; }
-        public int evolutionLevel { get; set; } = 101; //Cannot evolve
+        public int evolutionLevel { get; set; } = 28;
         public Stats baseStats { get; set; } = new Stats()
         {
-            //Total = 515
-            HP = 105,
-            ATK = 100,
-            DEF = 100,
+            //Total = 345
+            HP = 60,
+            ATK = 70,
+            DEF = 40,
             Sp_ATK = 60,
-            Sp_DEF = 100,
-            SPD = 50
+            Sp_DEF = 40,
+            SPD = 75
         };
         public Stats currentStats { get; set; }
         public List<IMoves> moves { get; set; }
         public Dictionary<int, IMoves> learnableMoves { get; set; } = new Dictionary<int, IMoves>()
         {
             //List out all moves it can learn and at what level it can learn it
-            { 40, new HyperBeam() }
+            { 1, new Scratch() },
+            { 6, new Munch() },
+            { 15, new Annoyance() },
+            { 25, new BodySlam() }
         };
         public List<IType> typing { get; set; } = new List<IType>()
         {
-            { new Normal() }
+            { new Bug() }
         };
+
+        public void Evolve(List<IMonster> party, int index) //This method only exists in monsters that can evolve
+        {
+            party[index] = new Centillian(this.level, this.experience, this.moves); //Replace the monster in the index position with the evolved version
+            Console.WriteLine($"Congratulations! Your {this.name} evolved into {party[index].name}!");
+        }
 
         public void LevelUp(List<IMonster> party, int index)
         {
@@ -93,6 +105,12 @@ namespace BattleSimulation.console.Monsters
                             Console.WriteLine($"{this.name} learnt {learnableMoves[this.level].name}!");
                         }
                     }
+
+                    //If the evolution level is met upon leveling up, make the monster at the current party location to the evolved version of this monster.
+                    if (!(this.experience.currentEXP >= this.experience.levelRequirement.ElementAt(this.level - 1)) && this.level >= this.evolutionLevel)
+                    {
+                        this.Evolve(party, index);
+                    }
                 }
                 else
                 {
@@ -101,7 +119,7 @@ namespace BattleSimulation.console.Monsters
             }
         }
 
-        public Monsieur(int level, EXP? exp = null, List<IMoves>? moves = null)
+        public Centoach(int level, EXP? exp = null, List<IMoves>? moves = null)
         {
             //Level
             this.level = level;
@@ -113,7 +131,7 @@ namespace BattleSimulation.console.Monsters
             }
             else
             {
-                this.experience = new EXP(level, 1); //0 | 1 | 2 = Fast | Medium | Slow EXP group
+                this.experience = new EXP(level, 0); //0 | 1 | 2 = Fast | Medium | Slow EXP group
             }
 
             //Current stats

@@ -1,40 +1,50 @@
-﻿using BattleSimulation.console.Moves;
-using BattleSimulation.console.Moves.NormalMoves;
+﻿using BattleSimulation.console.Moves.NormalMoves;
+using BattleSimulation.console.Moves.PsychicMoves;
+using BattleSimulation.console.Moves.WaterMoves;
+using BattleSimulation.console.Moves;
 using BattleSimulation.console.Types;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BattleSimulation.console.Moves.BugMoves;
+using BattleSimulation.console.Moves.SteelMoves;
 
 namespace BattleSimulation.console.Monsters
 {
-    public class Monsieur : IMonster
+    public class Centillian : IMonster
     {
-        public string name { get; set; } = "Monsieur";
+        public string name { get; set; } = "Centillian";
         public int level { get; set; }
         public EXP experience { get; set; }
         public int evolutionLevel { get; set; } = 101; //Cannot evolve
         public Stats baseStats { get; set; } = new Stats()
         {
-            //Total = 515
-            HP = 105,
-            ATK = 100,
+            //Total = 460
+            HP = 65,
+            ATK = 110,
             DEF = 100,
             Sp_ATK = 60,
-            Sp_DEF = 100,
-            SPD = 50
+            Sp_DEF = 50,
+            SPD = 75
         };
         public Stats currentStats { get; set; }
         public List<IMoves> moves { get; set; }
         public Dictionary<int, IMoves> learnableMoves { get; set; } = new Dictionary<int, IMoves>()
         {
             //List out all moves it can learn and at what level it can learn it
-            { 40, new HyperBeam() }
+            { 1, new Scratch() },
+            { 6, new Munch() },
+            { 15, new Annoyance() },
+            { 25, new BodySlam() },
+            { 34, new MetalPipe() },
+            { 43, new CrossCut() }
         };
         public List<IType> typing { get; set; } = new List<IType>()
         {
-            { new Normal() }
+            { new Bug() },
+            { new Steel() }
         };
 
         public void LevelUp(List<IMonster> party, int index)
@@ -101,7 +111,7 @@ namespace BattleSimulation.console.Monsters
             }
         }
 
-        public Monsieur(int level, EXP? exp = null, List<IMoves>? moves = null)
+        public Centillian(int level, EXP? exp = null, List<IMoves>? moves = null)
         {
             //Level
             this.level = level;
@@ -113,7 +123,7 @@ namespace BattleSimulation.console.Monsters
             }
             else
             {
-                this.experience = new EXP(level, 1); //0 | 1 | 2 = Fast | Medium | Slow EXP group
+                this.experience = new EXP(level, 0); //0 | 1 | 2 = Fast | Medium | Slow EXP group
             }
 
             //Current stats
