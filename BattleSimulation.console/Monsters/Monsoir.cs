@@ -1,5 +1,7 @@
 ﻿using BattleSimulation.console.Moves;
 using BattleSimulation.console.Moves.NormalMoves;
+using BattleSimulation.console.Moves.PsychicMoves;
+using BattleSimulation.console.Moves.WaterMoves;
 using BattleSimulation.console.Types;
 using System;
 using System.Collections.Generic;
@@ -30,8 +32,10 @@ namespace BattleSimulation.console.Monsters
         public Dictionary<int, IMoves> learnableMoves { get; set; } = new Dictionary<int, IMoves>()
         {
             //List out all moves it can learn and at what level it can learn it
-            { 1, new Tackle() }
-
+            { 1, new Tackle() },
+            { 8, new SpoonShock() },
+            { 20, new Spit() },
+            { 29, new BodySlam() }
         };
         public List<IType> typing { get; set; } = new List<IType>()
         {

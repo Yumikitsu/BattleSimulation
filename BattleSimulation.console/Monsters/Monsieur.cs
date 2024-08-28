@@ -30,8 +30,7 @@ namespace BattleSimulation.console.Monsters
         public Dictionary<int, IMoves> learnableMoves { get; set; } = new Dictionary<int, IMoves>()
         {
             //List out all moves it can learn and at what level it can learn it
-            { 1, new Tackle() }
-
+            { 40, new HyperBeam() }
         };
         public List<IType> typing { get; set; } = new List<IType>()
         {
