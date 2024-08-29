@@ -1,7 +1,6 @@
 ﻿using BattleSimulation.console.Moves.GrassMoves;
 using BattleSimulation.console.Moves.NormalMoves;
-using BattleSimulation.console.Moves.SteelMoves;
-using BattleSimulation.console.Moves.WaterMoves;
+using BattleSimulation.console.Moves.PsychicMoves;
 using BattleSimulation.console.Moves;
 using BattleSimulation.console.Types;
 using System;
@@ -9,26 +8,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BattleSimulation.console.Moves.FightingMoves;
-using BattleSimulation.console.Moves.IceMoves;
+using BattleSimulation.console.Moves.BugMoves;
+using BattleSimulation.console.Moves.PoisonMoves;
 
 namespace BattleSimulation.console.Monsters
 {
-    public class Bauberry : IMonster
+    public class Ylivahn : IMonster
     {
-        public string name { get; set; } = "Bauberry";
+        public string name { get; set; } = "Ylivahn";
         public int level { get; set; }
         public EXP experience { get; set; }
-        public int evolutionLevel { get; set; } = 101; //Cannot evolve anymore
+        public int evolutionLevel { get; set; } = 31;
         public Stats baseStats { get; set; } = new Stats()
         {
-            //Total = 500
-            HP = 75,
-            ATK = 60,
-            DEF = 60,
-            Sp_ATK = 115,
-            Sp_DEF = 105,
-            SPD = 85
+            //Total = 360
+            HP = 80,
+            ATK = 40,
+            DEF = 65,
+            Sp_ATK = 85,
+            Sp_DEF = 40,
+            SPD = 50
         };
         public Stats currentStats { get; set; }
         public List<IMoves> moves { get; set; }
@@ -36,19 +35,24 @@ namespace BattleSimulation.console.Monsters
         {
             //List out all moves it can learn and at what level it can learn it
             { 1, new Scream() },
-            { 6, new Bubble() },
-            { 12, new Leafage() },
-            { 18, new LiquidMetal() },
-            { 27, new HydroPump() },
-            { 35, new LeafStorm() },
-            { 42, new Blizzard() },
-            { 51, new AuraSphere() }
+            { 6, new Leafage() },
+            { 12, new PollenPollution() },
+            { 15, new MindBreak() },
+            { 21, new Buzz() },
+            { 26, new ChemicalWarfare() },
+            { 30, new LeafStorm() }
         };
         public List<IType> typing { get; set; } = new List<IType>()
         {
-            { new Water() },
-            { new Grass() }
+            { new Grass() },
+            { new Psychic() }
         };
+
+        public void Evolve(List<IMonster> party, int index) //This method only exists in monsters that can evolve
+        {
+            party[index] = new Vahnfough(this.level, this.experience, this.moves); //Replace the monster in the index position with the evolved version
+            Console.WriteLine($"Congratulations! Your {this.name} evolved into {party[index].name}!");
+        }
 
         public void LevelUp(List<IMonster> party, int index)
         {
@@ -106,6 +110,12 @@ namespace BattleSimulation.console.Monsters
                             Console.WriteLine($"{this.name} learnt {learnableMoves[this.level].name}!");
                         }
                     }
+
+                    //If the evolution level is met upon leveling up, make the monster at the current party location to the evolved version of this monster.
+                    if (!(this.experience.currentEXP >= this.experience.levelRequirement.ElementAt(this.level - 1)) && this.level >= this.evolutionLevel)
+                    {
+                        this.Evolve(party, index);
+                    }
                 }
                 else
                 {
@@ -114,7 +124,7 @@ namespace BattleSimulation.console.Monsters
             }
         }
 
-        public Bauberry(int level, EXP? exp = null, List<IMoves>? moves = null)
+        public Ylivahn(int level, EXP? exp = null, List<IMoves>? moves = null)
         {
             //Level
             this.level = level;

@@ -1,7 +1,8 @@
-﻿using BattleSimulation.console.Moves.GrassMoves;
+﻿using BattleSimulation.console.Moves.DarkMoves;
+using BattleSimulation.console.Moves.ElectricMoves;
+using BattleSimulation.console.Moves.FairyMoves;
+using BattleSimulation.console.Moves.FightingMoves;
 using BattleSimulation.console.Moves.NormalMoves;
-using BattleSimulation.console.Moves.SteelMoves;
-using BattleSimulation.console.Moves.WaterMoves;
 using BattleSimulation.console.Moves;
 using BattleSimulation.console.Types;
 using System;
@@ -9,26 +10,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BattleSimulation.console.Moves.FightingMoves;
-using BattleSimulation.console.Moves.IceMoves;
+using BattleSimulation.console.Moves.GroundMoves;
 
 namespace BattleSimulation.console.Monsters
 {
-    public class Bauberry : IMonster
+    public class Queenzlie : IMonster
     {
-        public string name { get; set; } = "Bauberry";
+        public string name { get; set; } = "Queenzlie";
         public int level { get; set; }
         public EXP experience { get; set; }
-        public int evolutionLevel { get; set; } = 101; //Cannot evolve anymore
+        public int evolutionLevel { get; set; } = 101; //Cannot evolve
         public Stats baseStats { get; set; } = new Stats()
         {
-            //Total = 500
-            HP = 75,
-            ATK = 60,
-            DEF = 60,
-            Sp_ATK = 115,
-            Sp_DEF = 105,
-            SPD = 85
+            //Total = 550
+            HP = 80,
+            ATK = 135,
+            DEF = 97,
+            Sp_ATK = 65,
+            Sp_DEF = 68,
+            SPD = 105
         };
         public Stats currentStats { get; set; }
         public List<IMoves> moves { get; set; }
@@ -36,18 +36,18 @@ namespace BattleSimulation.console.Monsters
         {
             //List out all moves it can learn and at what level it can learn it
             { 1, new Scream() },
-            { 6, new Bubble() },
-            { 12, new Leafage() },
-            { 18, new LiquidMetal() },
-            { 27, new HydroPump() },
-            { 35, new LeafStorm() },
-            { 42, new Blizzard() },
-            { 51, new AuraSphere() }
+            { 6, new Nuzzle() },
+            { 12, new Bite() },
+            { 19, new GlitterBomb() },
+            { 25, new VoltTackle() },
+            { 33, new Pummeling() },
+            { 45, new PerfectStrike() },
+            { 60, new Earthquake() }
         };
         public List<IType> typing { get; set; } = new List<IType>()
         {
-            { new Water() },
-            { new Grass() }
+            { new Electric() },
+            { new Fairy() }
         };
 
         public void LevelUp(List<IMonster> party, int index)
@@ -114,7 +114,7 @@ namespace BattleSimulation.console.Monsters
             }
         }
 
-        public Bauberry(int level, EXP? exp = null, List<IMoves>? moves = null)
+        public Queenzlie(int level, EXP? exp = null, List<IMoves>? moves = null)
         {
             //Level
             this.level = level;
@@ -126,7 +126,7 @@ namespace BattleSimulation.console.Monsters
             }
             else
             {
-                this.experience = new EXP(level, 1); //0 | 1 | 2 = Fast | Medium | Slow EXP group
+                this.experience = new EXP(level, 2); //0 | 1 | 2 = Fast | Medium | Slow EXP group
             }
 
             //Current stats
