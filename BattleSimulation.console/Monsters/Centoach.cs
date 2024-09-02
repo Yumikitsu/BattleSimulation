@@ -15,6 +15,7 @@ namespace BattleSimulation.console.Monsters
     public class Centoach : IMonster
     {
         public string name { get; set; } = "Centoach";
+        public int health { get; set; }
         public int level { get; set; }
         public EXP experience { get; set; }
         public int evolutionLevel { get; set; } = 28;
@@ -45,7 +46,7 @@ namespace BattleSimulation.console.Monsters
 
         public void Evolve(List<IMonster> party, int index) //This method only exists in monsters that can evolve
         {
-            party[index] = new Centillian(this.level, this.experience, this.moves); //Replace the monster in the index position with the evolved version
+            party[index] = new Centillian(this.level, this.experience, this.moves, this.health); //Replace the monster in the index position with the evolved version
             Console.WriteLine($"Congratulations! Your {this.name} evolved into {party[index].name}!");
         }
 
@@ -56,6 +57,19 @@ namespace BattleSimulation.console.Monsters
                 if (this.experience.currentEXP >= this.experience.levelRequirement.ElementAt(this.level - 1)) //Level up will occur
                 {
                     this.level += 1;
+                    int healthDiff = this.currentStats.HP - this.health;
+
+                    //Update stats
+                    this.currentStats.HP = 10 + (1 * this.level) + ((this.baseStats.HP * this.level) / 50);
+                    this.currentStats.ATK = 5 + ((this.baseStats.ATK * this.level) / 50);
+                    this.currentStats.DEF = 5 + ((this.baseStats.DEF * this.level) / 50);
+                    this.currentStats.Sp_ATK = 5 + ((this.baseStats.Sp_ATK * this.level) / 50);
+                    this.currentStats.Sp_DEF = 5 + ((this.baseStats.Sp_DEF * this.level) / 50);
+                    this.currentStats.SPD = 5 + ((this.baseStats.SPD * this.level) / 50);
+
+                    //Current health
+                    this.health = this.currentStats.HP - healthDiff;
+
                     Console.WriteLine($"{this.name} leveled up to lv.{this.level}!");
                     if (learnableMoves.ContainsKey(this.level)) //If a new move can be taught at this level
                     {
@@ -144,6 +158,9 @@ namespace BattleSimulation.console.Monsters
                 Sp_DEF = 5 + ((this.baseStats.Sp_DEF * this.level) / 50),
                 SPD = 5 + ((this.baseStats.SPD * this.level) / 50)
             };
+
+            //Health for base pokemon
+            this.health = this.currentStats.HP; //Max HP
 
             //Current moves
             if (moves != null)

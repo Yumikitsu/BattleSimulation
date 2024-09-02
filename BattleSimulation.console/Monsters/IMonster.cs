@@ -11,6 +11,7 @@ namespace BattleSimulation.console.Monsters
     public interface IMonster
     {
         public string name { get; set; } //Name of the monster
+        public int health { get; set; } //Current health of the monster
         public int level { get; set; } //Current level of the monster
         public EXP experience { get; set; } //Current exp and exp required to reach a certain level
         public int evolutionLevel { get; set; } //The level required for the monster to evolve
